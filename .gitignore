@@ -1,4 +1,19 @@
+# macOS
+.DS_Store
+
+# local tooling and notes
+.local
+.cursor
+.junie
+.idea
+
+# JetBrains plugin build output
+.gradle
+.kotlin
+.intellijPlatform
+build
+
+# VS Code extension build output
 node_modules
 out
 *.vsix
-.DS_Store

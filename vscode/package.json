@@ -7,7 +7,8 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sulsira/relay"
+    "url": "https://github.com/sulsira/relay",
+    "directory": "vscode"
   },
   "engines": {
     "vscode": "^1.93.0"
@@ -201,5 +202,5 @@
   "bugs": {
     "url": "https://github.com/sulsira/relay/issues"
   },
-  "homepage": "https://github.com/sulsira/relay#readme"
+  "homepage": "https://github.com/sulsira/relay/tree/main/vscode#readme"
 }

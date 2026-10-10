@@ -1,0 +1,91 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.sulsira.relay</id>
+    <name>Relay</name>
+    <vendor email="sulsira@users.noreply.github.com" url="https://github.com/sulsira/relay">sulsira</vendor>
+    <description><![CDATA[
+        <p><b>Relay</b> sends editor context to a configurable coding agent in a dedicated terminal tab. Works with Cursor, Claude Code, Aider, and any CLI agent you configure.</p>
+
+        <p><b>Features</b></p>
+        <ul>
+            <li><b>Agent library</b> — save agents with name, command, reference mode, and launch mode</li>
+            <li><b>Goose-aware references</b> — interactive Goose/TUI sessions use <code>@path</code>; batch CLI keeps <code>Read path</code></li>
+            <li><b>Default agent</b> — shortcuts always open <code>Relay:&lt;default&gt;</code> and run that agent's command</li>
+            <li><b>Quick default switch</b> — change the default from <b>Relay → Default Agent</b> in the editor menu</li>
+            <li><b>Agent-native file references</b> — <code>@path</code> for Cursor/Claude, <code>/add path</code> for Aider, or <code>Read path</code> for other agents</li>
+            <li><b>Agent-native selections</b> — line-range <code>@</code> syntax for Cursor/Claude, or fenced snippets with file and line references for other agents</li>
+            <li><b>Focus existing tab</b> — reuses and focuses the tab instead of opening a duplicate</li>
+            <li><b>Customizable shortcuts</b> — change keyboard shortcuts from plugin settings or <b>Settings → Keymap</b></li>
+            <li><b>Cross-IDE support</b> — PyCharm, WebStorm, IntelliJ IDEA, and other IDEs with the Terminal plugin (2025.3+)</li>
+        </ul>
+
+        <p><b>Default keyboard shortcuts</b></p>
+        <ul>
+            <li><b>Ctrl+Alt+T</b> — Open or focus Relay</li>
+            <li><b>Ctrl+Alt+P</b> — Send file path to Relay</li>
+            <li><b>Ctrl+Alt+Enter</b> — Send selection (with file path and lines) to Relay</li>
+        </ul>
+
+        <p>Configure agents under <b>Settings → Tools → Relay</b>. Switch the default quickly from the editor menu: <b>Relay → Default Agent</b>.</p>
+
+        <p><b>How to switch the default agent</b></p>
+        <ol>
+            <li>Right-click in the editor → <b>Relay → Default Agent</b></li>
+            <li>Pick an agent (checkmark shows the current default)</li>
+            <li>Use any Relay shortcut — the next trigger opens <code>Relay:&lt;agent&gt;</code> and runs that agent's command</li>
+        </ol>
+
+        <p><b>Example agents</b></p>
+        <ul>
+            <li><b>Cursor</b> — name: <code>cursor</code>, command: <code>agent</code></li>
+            <li><b>Claude Code</b> — name: <code>claude</code>, command: <code>claude</code></li>
+            <li><b>Aider</b> — name: <code>aider</code>, command: <code>aider --model sonnet</code></li>
+        </ul>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.terminal</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="com.example.sendtoterminal.StaleRelayTabCleaner"/>
+        <postStartupActivity implementation="com.example.sendtoterminal.OpenAgentActionsStartup"/>
+        <applicationService serviceImplementation="com.example.sendtoterminal.settings.SendToTerminalSettings"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.example.sendtoterminal.settings.SendToTerminalSettingsConfigurable"
+                id="com.sulsira.relay.settings"
+                displayName="Relay"/>
+    </extensions>
+
+    <actions>
+        <group id="Relay" text="Relay" popup="true">
+            <group id="Relay.DefaultAgent"
+                   class="com.example.sendtoterminal.DefaultAgentActionGroup"
+                   text="Default Agent"
+                   popup="true"/>
+
+            <action id="SendToTerminal.Open"
+                    class="com.example.sendtoterminal.OpenTerminalAction"
+                    text="Open Relay"
+                    description="Open and focus the Relay terminal tab for the configured agent">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt T"/>
+            </action>
+
+            <action id="SendToTerminal.FilePath"
+                    class="com.example.sendtoterminal.SendFilePathToTerminalAction"
+                    text="Send File Path to Relay"
+                    description="Open Relay and send the current file's path to the configured agent">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt P"/>
+            </action>
+
+            <action id="SendToTerminal.Selection"
+                    class="com.example.sendtoterminal.SendSelectionToTerminalAction"
+                    text="Send Selection to Relay"
+                    description="Open Relay and send the selected code with file path and line range">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt ENTER"/>
+            </action>
+
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </group>
+    </actions>
+</idea-plugin>
