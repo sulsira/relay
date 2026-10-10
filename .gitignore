@@ -1,19 +1,92 @@
-# macOS
+# ---------------------------------------------------------------------------
+# Secrets and credentials. Never commit these.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+.vsce
+.ovsx
+.aws/
+credentials.json
+secrets.*
+
+# ---------------------------------------------------------------------------
+# Operating system
+# ---------------------------------------------------------------------------
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# local tooling and notes
-.local
-.cursor
-.junie
-.idea
+# ---------------------------------------------------------------------------
+# Editors, IDE state and local tooling
+# ---------------------------------------------------------------------------
+.idea/
+*.iml
+*.iws
+*.ipr
+.junie/
+.cursor/
+.local/
+.claude/
+*.swp
+*.swo
+*~
 
-# JetBrains plugin build output
-.gradle
-.kotlin
-.intellijPlatform
-build
+# VS Code user state. Tracked config such as vscode/.vscode/launch.json is kept.
+**/.vscode/*
+!**/.vscode/launch.json
+!**/.vscode/tasks.json
+!**/.vscode/extensions.json
 
-# VS Code extension build output
-node_modules
-out
+# ---------------------------------------------------------------------------
+# JetBrains plugin (jetbrains/): Gradle build output and sandbox
+# ---------------------------------------------------------------------------
+.gradle/
+.kotlin/
+.intellijPlatform/
+**/build/
+*.class
+hs_err_pid*
+replay_pid*
+
+# ---------------------------------------------------------------------------
+# VS Code extension (vscode/): npm and build output
+# ---------------------------------------------------------------------------
+node_modules/
+out/
+dist/
 *.vsix
+.vscode-test/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.eslintcache
+
+# ---------------------------------------------------------------------------
+# Test and coverage output
+# ---------------------------------------------------------------------------
+coverage/
+.nyc_output/
+test-results/
+junit.xml
+
+# ---------------------------------------------------------------------------
+# Logs and temporary files
+# ---------------------------------------------------------------------------
+*.log
+*.tmp
+*.temp
