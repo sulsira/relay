@@ -10,3 +10,4 @@ scripts/**
 media/**
 !media/icon.png
 test-fixtures/**
+releases/**

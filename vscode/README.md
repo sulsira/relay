@@ -1,6 +1,8 @@
 # Relay for CLI Agents
 
-Relay for CLI Agents (Relay) sends file paths and code selections from the editor to a CLI coding agent running in a dedicated terminal. It is the VS Code version of Relay. The JetBrains version lives in [`../jetbrains`](../jetbrains/README.md).
+Relay for CLI Agents (Relay) sends file paths and code selections from the editor to a CLI coding agent running in a dedicated terminal. It is the VS Code version of Relay. The JetBrains version lives in [`jetbrains/`](https://github.com/sulsira/relay/tree/main/jetbrains).
+
+**Source code, issues and releases:** [github.com/sulsira/relay](https://github.com/sulsira/relay). This extension is in the [`vscode/`](https://github.com/sulsira/relay/tree/main/vscode) folder.
 
 ## What it does
 
@@ -154,7 +156,7 @@ Use this to install without the Marketplace.
 
 **Option A: use the prebuilt file in this repository (fastest)**
 
-1. The installable file is committed at [`releases/relay-vscode-1.5.0.vsix`](releases/relay-vscode-1.5.0.vsix). Its checksum is in [`releases/SHA256SUMS`](releases/SHA256SUMS).
+1. The installable file is committed at [`releases/relay-vscode-1.5.0.vsix`](https://github.com/sulsira/relay/blob/main/vscode/releases/relay-vscode-1.5.0.vsix). Its checksum is in [`releases/SHA256SUMS`](https://github.com/sulsira/relay/blob/main/vscode/releases/SHA256SUMS).
 2. Download it. Either of these works once the repository is public:
    1. Open the file on GitHub and click **Download raw file**.
    2. Or run `curl -L -o relay-vscode-1.5.0.vsix https://github.com/sulsira/relay/raw/main/vscode/releases/relay-vscode-1.5.0.vsix`.
@@ -281,3 +283,13 @@ Run in the `F5` window with a workspace open and two agents, for example `claude
 4. Refresh the checksum: `cd releases && shasum -a 256 relay-vscode-<version>.vsix > SHA256SUMS`.
 5. Update the file name in **Install manually (VS Code)**.
 6. Publish to the Marketplace with `npx vsce publish`.
+
+## Source code and support
+
+| Need | Link |
+|---|---|
+| Source code | https://github.com/sulsira/relay (folder `vscode/`) |
+| Report a bug or request a feature | https://github.com/sulsira/relay/issues |
+| JetBrains version | https://github.com/sulsira/relay/tree/main/jetbrains |
+| Changelog | https://github.com/sulsira/relay/blob/main/vscode/CHANGELOG.md |
+| License | Apache 2.0, https://github.com/sulsira/relay/blob/main/LICENSE |
