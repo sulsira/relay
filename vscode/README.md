@@ -6,7 +6,7 @@ Relay for CLI Agents (Relay) sends file paths and code selections from the edito
 
 ## What it does
 
-![Relay for VS Code demo](media/relay-vscode-demo.gif)
+![Relay for VS Code demo](https://raw.githubusercontent.com/sulsira/relay/main/vscode/media/relay-vscode-demo.gif)
 
 _Illustrative animation, not a screen recording._
 
@@ -29,31 +29,31 @@ _Illustrations drawn for this README, not screen captures. Key labels use macOS 
 
 Press `Ctrl+Alt+T`. A terminal tab named `Relay:claude` opens and runs the agent's command.
 
-![Step 1: open Relay](media/steps/vscode-1-open.png)
+![Step 1: open Relay](https://raw.githubusercontent.com/sulsira/relay/main/vscode/media/steps/vscode-1-open.png)
 
 ### 2. Send the file path
 
 Press `Ctrl+Alt+P` with a file open. Relay pastes `@src/foo.ts` into the agent prompt. It does not press Enter, so you can keep typing.
 
-![Step 2: send the file path](media/steps/vscode-2-file-path.png)
+![Step 2: send the file path](https://raw.githubusercontent.com/sulsira/relay/main/vscode/media/steps/vscode-2-file-path.png)
 
 ### 3. Send a selection
 
 Select lines, then press `Ctrl+Alt+Enter`. Claude gets the line range as `@src/foo.ts#L3-L6`.
 
-![Step 3: send a selection](media/steps/vscode-3-selection.png)
+![Step 3: send a selection](https://raw.githubusercontent.com/sulsira/relay/main/vscode/media/steps/vscode-3-selection.png)
 
 ### 4. Add a second agent
 
 Press the key you bound to `relay.openAgent` with `"args": "cursor"` in `keybindings.json` (for example `Ctrl+Alt+2`). A second terminal opens, and the status bar shows `Relay: cursor`. Each agent has its own tab. The same selection now goes out in that agent's format: `@src/foo.ts:3-6` for Cursor.
 
-![Step 4: second agent](media/steps/vscode-4-second-agent.png)
+![Step 4: second agent](https://raw.githubusercontent.com/sulsira/relay/main/vscode/media/steps/vscode-4-second-agent.png)
 
 ### 5. Sends follow the active tab
 
 Switch back to the Claude tab. The next file path lands there, in Claude's format. Relay uses the tab you last used, not a fixed default.
 
-![Step 5: sends follow the active tab](media/steps/vscode-5-active-tab.png)
+![Step 5: sends follow the active tab](https://raw.githubusercontent.com/sulsira/relay/main/vscode/media/steps/vscode-5-active-tab.png)
 
 ## Commands and shortcuts
 
@@ -156,12 +156,12 @@ Use this to install without the Marketplace.
 
 **Option A: use the prebuilt file in this repository (fastest)**
 
-1. The installable file is committed at [`releases/relay-vscode-1.5.1.vsix`](https://github.com/sulsira/relay/blob/main/vscode/releases/relay-vscode-1.5.1.vsix). Its checksum is in [`releases/SHA256SUMS`](https://github.com/sulsira/relay/blob/main/vscode/releases/SHA256SUMS).
+1. The installable file is committed at [`releases/relay-vscode-1.5.2.vsix`](https://github.com/sulsira/relay/blob/main/vscode/releases/relay-vscode-1.5.2.vsix). Its checksum is in [`releases/SHA256SUMS`](https://github.com/sulsira/relay/blob/main/vscode/releases/SHA256SUMS).
 2. Download it. Either of these works once the repository is public:
    1. Open the file on GitHub and click **Download raw file**.
-   2. Or run `curl -L -o relay-vscode-1.5.1.vsix https://github.com/sulsira/relay/raw/main/vscode/releases/relay-vscode-1.5.1.vsix`.
-3. If you cloned the repository, the file is already at `vscode/releases/relay-vscode-1.5.1.vsix`.
-4. Optional check: run `shasum -a 256 relay-vscode-1.5.1.vsix` and compare it with `releases/SHA256SUMS`.
+   2. Or run `curl -L -o relay-vscode-1.5.2.vsix https://github.com/sulsira/relay/raw/main/vscode/releases/relay-vscode-1.5.2.vsix`.
+3. If you cloned the repository, the file is already at `vscode/releases/relay-vscode-1.5.2.vsix`.
+4. Optional check: run `shasum -a 256 relay-vscode-1.5.2.vsix` and compare it with `releases/SHA256SUMS`.
 
 **Option B: build it yourself**
 
@@ -174,7 +174,7 @@ Pick one way.
 
 **From the command line**
 
-1. Run `code --install-extension relay-vscode-1.5.1.vsix`. Use the full path if the file is not in the current folder.
+1. Run `code --install-extension relay-vscode-1.5.2.vsix`. Use the full path if the file is not in the current folder.
 2. Reload VS Code: Command Palette (`Cmd+Shift+P`), then `Developer: Reload Window`.
 
 **From the VS Code window**
@@ -182,7 +182,7 @@ Pick one way.
 1. Open the **Extensions** view (`Cmd+Shift+X`).
 2. Click the `...` menu at the top of the view.
 3. Choose **Install from VSIX...**.
-4. Select `relay-vscode-1.5.1.vsix`.
+4. Select `relay-vscode-1.5.2.vsix`.
 5. Click **Reload** if VS Code asks.
 
 If the `code` command is not found: Command Palette, then `Shell Command: Install 'code' command in PATH`.
@@ -292,4 +292,4 @@ Run in the `F5` window with a workspace open and two agents, for example `claude
 | Report a bug or request a feature | https://github.com/sulsira/relay/issues |
 | JetBrains version | https://github.com/sulsira/relay/tree/main/jetbrains |
 | Changelog | https://github.com/sulsira/relay/blob/main/vscode/CHANGELOG.md |
-| License | Apache 2.0, https://github.com/sulsira/relay/blob/main/LICENSE |
+| License | MIT, https://github.com/sulsira/relay/blob/main/LICENSE |

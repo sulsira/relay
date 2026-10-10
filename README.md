@@ -22,7 +22,7 @@ _Illustrative animation, not a screen recording._
 ```
 relay/
 ├── README.md                  this file: overview, shared behavior, structure
-├── LICENSE                    Apache 2.0, covers all platforms
+├── LICENSE                    MIT, covers all platforms
 ├── .gitignore                 ignore rules for every platform's build output
 ├── jetbrains/                 JetBrains plugin (Kotlin, Gradle)
 │   ├── README.md              install, build, develop, test
@@ -137,7 +137,7 @@ Installable files are committed so you can install without building. Full steps 
 | Platform | File | Install |
 |---|---|---|
 | JetBrains | [`jetbrains/releases/relay-1.5.0.zip`](jetbrains/releases/relay-1.5.0.zip) | **Settings → Plugins →** gear **→ Install Plugin from Disk...**, then restart. [Steps](jetbrains/README.md#install-manually-jetbrains) |
-| VS Code | [`vscode/releases/relay-vscode-1.5.1.vsix`](vscode/releases/relay-vscode-1.5.1.vsix) | `code --install-extension relay-vscode-1.5.1.vsix`, or **Extensions → ... → Install from VSIX...**. [Steps](vscode/README.md#install-manually-vs-code) |
+| VS Code | [`vscode/releases/relay-vscode-1.5.2.vsix`](vscode/releases/relay-vscode-1.5.2.vsix) | `code --install-extension relay-vscode-1.5.2.vsix`, or **Extensions → ... → Install from VSIX...**. [Steps](vscode/README.md#install-manually-vs-code) |
 
 - Each `releases/` folder has a `SHA256SUMS` file. Check a download with `shasum -a 256 <file>`.
 - Downloads from GitHub work once the repository is public.

@@ -1,5 +1,15 @@
 # Relay for VS Code Changelog
 
+## [1.5.2] - 2026-10-10
+
+### Changed
+
+- License is MIT. Versions 1.5.0 and 1.5.1 were published with Apache-2.0 metadata
+
+### Fixed
+
+- README images did not load on the Marketplace. They now use absolute URLs, because the packager dropped the `vscode/` folder from relative image paths
+
 ## [1.5.1] - 2026-10-10
 
 ### Changed
