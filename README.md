@@ -17,6 +17,67 @@ _Illustrative animation, not a screen recording._
 - Each folder has its own README, changelog, version, tests and build.
 - Build, test and install steps are in each platform's README. This file does not repeat them.
 
+## Repository structure
+
+```
+relay/
+├── README.md                  this file: overview, shared behavior, structure
+├── LICENSE                    Apache 2.0, covers all platforms
+├── .gitignore                 ignore rules for every platform's build output
+├── jetbrains/                 JetBrains plugin (Kotlin, Gradle)
+│   ├── README.md              install, build, develop, test
+│   ├── CHANGELOG.md
+│   ├── build.gradle.kts       plugin build
+│   ├── settings.gradle.kts
+│   ├── gradle.properties      plugin version and target IDE
+│   ├── gradlew, gradlew.bat, gradle/wrapper/
+│   ├── .run/                  IDE run configs (Run Plugin, Run Tests, Run Verifications)
+│   ├── media/                 demo GIF and step images
+│   └── src/
+│       ├── main/kotlin/com/example/sendtoterminal/
+│       │   ├── *Action*.kt        editor actions and per-agent actions
+│       │   ├── TerminalSender.kt  tab lifecycle, target choice, paste
+│       │   ├── StaleRelayTabCleaner.kt
+│       │   ├── format/            agent detection and reference formats
+│       │   └── settings/          saved settings and settings screen
+│       ├── main/resources/META-INF/plugin.xml
+│       └── test/kotlin/...        unit tests for format/
+└── vscode/                    VS Code extension (TypeScript, npm)
+    ├── README.md              install, settings, develop, test (Marketplace page)
+    ├── CHANGELOG.md
+    ├── package.json           extension manifest, commands, settings, version
+    ├── tsconfig.json
+    ├── .vscode/               F5 launch and build tasks
+    ├── .vscodeignore          files left out of the packaged .vsix
+    ├── media/                 demo GIF and step images
+    ├── scripts/run-integration.js
+    ├── test-fixtures/workspace/   sample project the integration test opens
+    └── src/
+        ├── extension.ts       commands and status bar
+        ├── sender.ts          terminal lifecycle, target choice, paste
+        ├── settings.ts        reads relay.* settings
+        ├── format.ts          agent detection and reference formats
+        ├── test/              unit tests for format.ts
+        └── integration/       end-to-end scenario run inside VS Code
+```
+
+| Rule | Detail |
+|---|---|
+| One folder per platform | Source, build files, tests, README, changelog and media for a platform stay inside its folder. |
+| Nothing shared in code | `jetbrains/` and `vscode/` share no source. They share behavior, written down in this file. |
+| Open one folder at a time | Open `jetbrains/` in IntelliJ IDEA and `vscode/` in VS Code. Opening the repo root works for browsing, but the Gradle and npm projects are not at the root. |
+| Run commands in the platform folder | Run `./gradlew ...` inside `jetbrains/` and `npm ...` inside `vscode/`. |
+| Same names across platforms | The same pieces have the same job: `TerminalSender` and `sender.ts` choose the terminal, `format/` and `format.ts` build the reference text. |
+
+What is not in the repository:
+
+| Item | Why |
+|---|---|
+| `build/`, `.gradle/`, `.kotlin/`, `.intellijPlatform/` | JetBrains build output and sandbox, ignored |
+| `node_modules/`, `out/`, `*.vsix` | VS Code build output, ignored |
+| `.idea/`, `.local/`, `.cursor/`, `.junie/`, `.DS_Store` | Personal tooling and editor state, ignored |
+| CI workflows | None yet for this layout |
+
 ## What Relay does
 
 1. You press a shortcut in the editor.
