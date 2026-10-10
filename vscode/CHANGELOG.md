@@ -1,5 +1,12 @@
 # Relay for VS Code Changelog
 
+## [1.5.1] - 2026-10-10
+
+### Changed
+
+- README links to the GitHub repository for source, issues, the JetBrains version and the changelog
+- Installable files are published under `releases/` in the repository
+
 ## [1.5.0] - 2026-10-10
 
 ### Added

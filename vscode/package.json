@@ -2,7 +2,7 @@
   "name": "relay-vscode",
   "displayName": "Relay for CLI Agents",
   "description": "Send file paths and code selections to a CLI coding agent running in a dedicated terminal.",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "publisher": "sulsira",
   "license": "Apache-2.0",
   "icon": "media/icon.png",

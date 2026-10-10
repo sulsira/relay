@@ -156,12 +156,12 @@ Use this to install without the Marketplace.
 
 **Option A: use the prebuilt file in this repository (fastest)**
 
-1. The installable file is committed at [`releases/relay-vscode-1.5.0.vsix`](https://github.com/sulsira/relay/blob/main/vscode/releases/relay-vscode-1.5.0.vsix). Its checksum is in [`releases/SHA256SUMS`](https://github.com/sulsira/relay/blob/main/vscode/releases/SHA256SUMS).
+1. The installable file is committed at [`releases/relay-vscode-1.5.1.vsix`](https://github.com/sulsira/relay/blob/main/vscode/releases/relay-vscode-1.5.1.vsix). Its checksum is in [`releases/SHA256SUMS`](https://github.com/sulsira/relay/blob/main/vscode/releases/SHA256SUMS).
 2. Download it. Either of these works once the repository is public:
    1. Open the file on GitHub and click **Download raw file**.
-   2. Or run `curl -L -o relay-vscode-1.5.0.vsix https://github.com/sulsira/relay/raw/main/vscode/releases/relay-vscode-1.5.0.vsix`.
-3. If you cloned the repository, the file is already at `vscode/releases/relay-vscode-1.5.0.vsix`.
-4. Optional check: run `shasum -a 256 relay-vscode-1.5.0.vsix` and compare it with `releases/SHA256SUMS`.
+   2. Or run `curl -L -o relay-vscode-1.5.1.vsix https://github.com/sulsira/relay/raw/main/vscode/releases/relay-vscode-1.5.1.vsix`.
+3. If you cloned the repository, the file is already at `vscode/releases/relay-vscode-1.5.1.vsix`.
+4. Optional check: run `shasum -a 256 relay-vscode-1.5.1.vsix` and compare it with `releases/SHA256SUMS`.
 
 **Option B: build it yourself**
 
@@ -174,7 +174,7 @@ Pick one way.
 
 **From the command line**
 
-1. Run `code --install-extension relay-vscode-1.5.0.vsix`. Use the full path if the file is not in the current folder.
+1. Run `code --install-extension relay-vscode-1.5.1.vsix`. Use the full path if the file is not in the current folder.
 2. Reload VS Code: Command Palette (`Cmd+Shift+P`), then `Developer: Reload Window`.
 
 **From the VS Code window**
@@ -182,7 +182,7 @@ Pick one way.
 1. Open the **Extensions** view (`Cmd+Shift+X`).
 2. Click the `...` menu at the top of the view.
 3. Choose **Install from VSIX...**.
-4. Select `relay-vscode-1.5.0.vsix`.
+4. Select `relay-vscode-1.5.1.vsix`.
 5. Click **Reload** if VS Code asks.
 
 If the `code` command is not found: Command Palette, then `Shell Command: Install 'code' command in PATH`.
