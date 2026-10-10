@@ -33,6 +33,7 @@ relay/
 │   ├── gradlew, gradlew.bat, gradle/wrapper/
 │   ├── .run/                  IDE run configs (Run Plugin, Run Tests, Run Verifications)
 │   ├── media/                 demo GIF and step images
+│   ├── releases/              prebuilt relay-<version>.zip and SHA256SUMS
 │   └── src/
 │       ├── main/kotlin/com/example/sendtoterminal/
 │       │   ├── *Action*.kt        editor actions and per-agent actions
@@ -49,7 +50,8 @@ relay/
     ├── tsconfig.json
     ├── .vscode/               F5 launch and build tasks
     ├── .vscodeignore          files left out of the packaged .vsix
-    ├── media/                 demo GIF and step images
+    ├── media/                 demo GIF, step images and the extension icon
+    ├── releases/              prebuilt relay-vscode-<version>.vsix and SHA256SUMS
     ├── scripts/run-integration.js
     ├── test-fixtures/workspace/   sample project the integration test opens
     └── src/
@@ -74,7 +76,7 @@ What is not in the repository:
 | Item | Why |
 |---|---|
 | `build/`, `.gradle/`, `.kotlin/`, `.intellijPlatform/` | JetBrains build output and sandbox, ignored |
-| `node_modules/`, `out/`, `*.vsix` | VS Code build output, ignored |
+| `node_modules/`, `out/`, `*.vsix` outside `releases/` | VS Code build output, ignored. `releases/*.vsix` is tracked on purpose. |
 | `.idea/`, `.local/`, `.cursor/`, `.junie/`, `.DS_Store` | Personal tooling and editor state, ignored |
 | CI workflows | None yet for this layout |
 
@@ -128,11 +130,27 @@ Follow the same separation.
 5. Tag releases with the platform prefix, for example `zed-v1.0.0`.
 6. Add the build output of the new platform to the root `.gitignore`.
 
+## Install a prebuilt file
+
+Installable files are committed so you can install without building. Full steps are in each platform's README.
+
+| Platform | File | Install |
+|---|---|---|
+| JetBrains | [`jetbrains/releases/relay-1.5.0.zip`](jetbrains/releases/relay-1.5.0.zip) | **Settings → Plugins →** gear **→ Install Plugin from Disk...**, then restart. [Steps](jetbrains/README.md#install-manually-jetbrains) |
+| VS Code | [`vscode/releases/relay-vscode-1.5.0.vsix`](vscode/releases/relay-vscode-1.5.0.vsix) | `code --install-extension relay-vscode-1.5.0.vsix`, or **Extensions → ... → Install from VSIX...**. [Steps](vscode/README.md#install-manually-vs-code) |
+
+- Each `releases/` folder has a `SHA256SUMS` file. Check a download with `shasum -a 256 <file>`.
+- Downloads from GitHub work once the repository is public.
+- Files installed from disk are unsigned. Install only files you built or trust.
+
 ## Releases
 
-| Platform | Tag | Version lives in |
-|---|---|---|
-| JetBrains | `jetbrains-v<version>` | `jetbrains/gradle.properties` |
-| VS Code | `vscode-v<version>` | `vscode/package.json` |
+| Platform | Tag | Version lives in | Release file |
+|---|---|---|---|
+| JetBrains | `jetbrains-v<version>` | `jetbrains/gradle.properties` | `jetbrains/releases/relay-<version>.zip` |
+| VS Code | `vscode-v<version>` | `vscode/package.json` | `vscode/releases/relay-vscode-<version>.vsix` |
 
-Consequence: a fix to a shared reference format must be made in each platform folder, so update the shared table above in the same commit.
+- Each release replaces the file in `releases/`. Keep only the newest file there. Older versions stay in git history.
+- Release steps are in each platform's README.
+
+Consequence: a release is only complete when the file in `releases/` matches the version in the manifest, so rebuild and replace the file in the same commit as the version bump.

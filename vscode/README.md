@@ -146,6 +146,68 @@ Formats for file `src/foo.ts` and lines 10 to 20:
 | Launch column (Goose interactive or plain) | Not ported. Both modes give the same references today. |
 | Default agent switch in the editor menu | `Relay: Set Default Agent...` |
 
+## Install manually (VS Code)
+
+Use this to install without the Marketplace.
+
+### Get the file
+
+**Option A: use the prebuilt file in this repository (fastest)**
+
+1. The installable file is committed at [`releases/relay-vscode-1.5.0.vsix`](releases/relay-vscode-1.5.0.vsix). Its checksum is in [`releases/SHA256SUMS`](releases/SHA256SUMS).
+2. Download it. Either of these works once the repository is public:
+   1. Open the file on GitHub and click **Download raw file**.
+   2. Or run `curl -L -o relay-vscode-1.5.0.vsix https://github.com/sulsira/relay/raw/main/vscode/releases/relay-vscode-1.5.0.vsix`.
+3. If you cloned the repository, the file is already at `vscode/releases/relay-vscode-1.5.0.vsix`.
+4. Optional check: run `shasum -a 256 relay-vscode-1.5.0.vsix` and compare it with `releases/SHA256SUMS`.
+
+**Option B: build it yourself**
+
+1. Run `npm install` in the `vscode/` folder.
+2. Run `npm run package`. It writes `relay-vscode-<version>.vsix` in `vscode/`.
+
+### Install it
+
+Pick one way.
+
+**From the command line**
+
+1. Run `code --install-extension relay-vscode-1.5.0.vsix`. Use the full path if the file is not in the current folder.
+2. Reload VS Code: Command Palette (`Cmd+Shift+P`), then `Developer: Reload Window`.
+
+**From the VS Code window**
+
+1. Open the **Extensions** view (`Cmd+Shift+X`).
+2. Click the `...` menu at the top of the view.
+3. Choose **Install from VSIX...**.
+4. Select `relay-vscode-1.5.0.vsix`.
+5. Click **Reload** if VS Code asks.
+
+If the `code` command is not found: Command Palette, then `Shell Command: Install 'code' command in PATH`.
+
+### Check it
+
+1. The status bar, bottom left, shows `Relay: <agent>`.
+2. Command Palette, then type `Relay`. Five commands appear.
+3. Open a file and press `Ctrl+Alt+T`. A terminal named `Relay:<agent>` opens.
+
+### Update or remove
+
+| Goal | Steps |
+|---|---|
+| Update | Install the newer `.vsix` the same way. VS Code replaces the old version. Reload the window. |
+| Remove | **Extensions** view, find **Relay for CLI Agents**, click the gear, choose **Uninstall**. Or run `code --uninstall-extension sulsira.relay-vscode`. |
+
+### If it fails
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| `Unable to install ... engine ... ^1.93.0` | VS Code is older than 1.93 | Update VS Code |
+| `code: command not found` | Shell command not installed | Install it from the Command Palette, see above |
+| Nothing appears after install | Window not reloaded | Run `Developer: Reload Window` |
+| `Extension is not signed` or similar warning | A `.vsix` from disk is unsigned | Install only files you built or trust, then accept the prompt |
+| Status bar item missing | Extension activates at startup | Reload the window |
+
 ## Develop and test
 
 Requires Node.js 20 or newer and VS Code 1.93 or newer.
@@ -156,11 +218,11 @@ Requires Node.js 20 or newer and VS Code 1.93 or newer.
 | `npm run compile` | Compile TypeScript to `out/` |
 | `npm test` | Compile, then run unit tests with the Node test runner |
 | `npm run test:integration` | Launch the installed VS Code (`code` on `PATH`) with the extension and run an end-to-end scenario |
-| `npm run package` | Build `relay-vscode-<version>.vsix` |
+| `npm run package` | Build `relay-vscode-<version>.vsix` in `vscode/` |
 
 1. Open the `vscode/` folder of the repository in VS Code.
 2. Press `F5` (**Run Extension**). A second VS Code window opens with Relay loaded.
-3. Install a built package with `code --install-extension relay-vscode-<version>.vsix`.
+3. Install a built package with `code --install-extension relay-vscode-<version>.vsix`. See **Install manually (VS Code)** above.
 
 ### Code layout
 
@@ -210,3 +272,12 @@ Run in the `F5` window with a workspace open and two agents, for example `claude
 - Closing restored terminals is tested only with a terminal created after activation. A real window reload with persistent terminals is covered by manual step 8 only.
 - `sendText(text, false)` pastes without bracketed paste. References are single-line, so this is safe, but a multi-line payload would be typed line by line.
 - Shell integration events need VS Code 1.93 or newer.
+
+## Publishing a release file
+
+1. Raise `version` in `package.json` and add an entry to `CHANGELOG.md`.
+2. Run `npm test` and `npm run package`.
+3. Move the new file into `releases/` and delete the old one: `mv relay-vscode-<version>.vsix releases/`.
+4. Refresh the checksum: `cd releases && shasum -a 256 relay-vscode-<version>.vsix > SHA256SUMS`.
+5. Update the file name in **Install manually (VS Code)**.
+6. Publish to the Marketplace with `npx vsce publish`.

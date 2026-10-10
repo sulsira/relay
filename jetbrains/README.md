@@ -234,9 +234,20 @@ Use this to install a build without the Marketplace.
 
 ### Get the zip
 
-1. Build it from source: run `./gradlew buildPlugin` in the `jetbrains/` folder.
-2. Take the file `build/distributions/relay-<version>.zip`. For this version that is `relay-1.5.0.zip`.
-3. Or use a zip someone built for you. Do not unzip it.
+**Option A: use the prebuilt file in this repository (fastest)**
+
+1. The installable file is committed at [`releases/relay-1.5.0.zip`](releases/relay-1.5.0.zip). Its checksum is in [`releases/SHA256SUMS`](releases/SHA256SUMS).
+2. Download it. Either of these works once the repository is public:
+   1. Open the file on GitHub and click **Download raw file**.
+   2. Or run `curl -L -o relay-1.5.0.zip https://github.com/sulsira/relay/raw/main/jetbrains/releases/relay-1.5.0.zip`.
+3. If you cloned the repository, the file is already at `jetbrains/releases/relay-1.5.0.zip`.
+4. Optional check: run `shasum -a 256 relay-1.5.0.zip` and compare it with `releases/SHA256SUMS`.
+5. Do not unzip it.
+
+**Option B: build it yourself**
+
+1. Run `./gradlew buildPlugin` in the `jetbrains/` folder. See **Build from source (JetBrains)** above.
+2. Take `build/distributions/relay-<version>.zip`.
 
 ### Install it
 
@@ -244,7 +255,7 @@ Use this to install a build without the Marketplace.
 2. Open **Settings → Plugins**. On macOS use **IntelliJ IDEA → Settings → Plugins**.
 3. Click the gear icon next to **Installed**.
 4. Choose **Install Plugin from Disk...**.
-5. Select the `relay-<version>.zip` file.
+5. Select the zip file, for example `relay-1.5.0.zip`.
 6. Click **OK**, then click **Restart IDE** when asked.
 
 ### Check it
@@ -324,6 +335,10 @@ If step 5 or 6 fails, tab-selection tracking is the first suspect (`TerminalSend
 1. Bump `version` in `gradle.properties`.
 2. Add an entry to `CHANGELOG.md` under the new version.
 3. Run `./gradlew verifyPlugin buildPlugin`.
+4. Copy `build/distributions/relay-<version>.zip` into `releases/`.
+5. Replace the old zip and refresh the checksum: `cd releases && shasum -a 256 relay-<version>.zip > SHA256SUMS`.
+6. Update the file name in **Install manually (JetBrains)** and in this section.
+7. Keep only the newest zip in `releases/`.
 
 ## Known risk
 
