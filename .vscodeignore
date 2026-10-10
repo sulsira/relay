@@ -1,0 +1,11 @@
+.vscode/**
+src/**
+out/test/**
+**/*.map
+tsconfig.json
+node_modules/**
+*.vsix
+out/integration/**
+scripts/**
+media/**
+test-fixtures/**

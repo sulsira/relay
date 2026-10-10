@@ -1,0 +1,205 @@
+{
+  "name": "relay-vscode",
+  "displayName": "Relay",
+  "description": "Send file paths and code selections to a CLI coding agent running in a dedicated terminal.",
+  "version": "1.5.0",
+  "publisher": "sulsira",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sulsira/relay"
+  },
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other",
+    "AI"
+  ],
+  "keywords": [
+    "terminal",
+    "claude",
+    "cursor",
+    "aider",
+    "goose",
+    "agent",
+    "cli"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "relay.open",
+        "title": "Open Relay",
+        "category": "Relay"
+      },
+      {
+        "command": "relay.openAgent",
+        "title": "Open Agent...",
+        "category": "Relay"
+      },
+      {
+        "command": "relay.sendFilePath",
+        "title": "Send File Path to Relay",
+        "category": "Relay"
+      },
+      {
+        "command": "relay.sendSelection",
+        "title": "Send Selection to Relay",
+        "category": "Relay"
+      },
+      {
+        "command": "relay.setDefaultAgent",
+        "title": "Set Default Agent...",
+        "category": "Relay"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "relay.open",
+        "key": "ctrl+alt+t",
+        "mac": "ctrl+alt+t"
+      },
+      {
+        "command": "relay.sendFilePath",
+        "key": "ctrl+alt+p",
+        "mac": "ctrl+alt+p",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "relay.sendSelection",
+        "key": "ctrl+alt+enter",
+        "mac": "ctrl+alt+enter",
+        "when": "editorHasSelection"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "relay.menu",
+          "group": "navigation@99"
+        }
+      ],
+      "relay.menu": [
+        {
+          "command": "relay.open",
+          "group": "1_open@1"
+        },
+        {
+          "command": "relay.openAgent",
+          "group": "1_open@2"
+        },
+        {
+          "command": "relay.sendFilePath",
+          "group": "2_send@1"
+        },
+        {
+          "command": "relay.sendSelection",
+          "group": "2_send@2",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "relay.setDefaultAgent",
+          "group": "3_config@1"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "relay.menu",
+        "label": "Relay"
+      }
+    ],
+    "configuration": {
+      "title": "Relay",
+      "properties": {
+        "relay.agents": {
+          "type": "array",
+          "description": "Agent profiles. Each runs its command once in its own terminal tab named Relay:<name>.",
+          "default": [
+            {
+              "name": "cursor",
+              "command": "agent"
+            },
+            {
+              "name": "claude",
+              "command": "claude"
+            },
+            {
+              "name": "aider",
+              "command": "aider --model sonnet"
+            }
+          ],
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "command"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Unique label. Used in the terminal name Relay:<name> and to detect the agent kind (cursor, claude, aider, goose)."
+              },
+              "command": {
+                "type": "string",
+                "description": "Shell command run once in the new terminal to start the agent."
+              },
+              "referenceMode": {
+                "type": "string",
+                "default": "auto",
+                "enum": [
+                  "auto",
+                  "add",
+                  "read-only",
+                  "at-mention",
+                  "plain"
+                ],
+                "enumDescriptions": [
+                  "Pick the format from the agent name or command.",
+                  "File references become: /add @path",
+                  "File references become: /read-only @path",
+                  "References use @path and @path:start-end.",
+                  "Same output as at-mention, for agents with no special format."
+                ],
+                "description": "How file and selection references are written for this agent."
+              }
+            }
+          }
+        },
+        "relay.defaultAgent": {
+          "type": "string",
+          "default": "cursor",
+          "description": "Agent started when no Relay terminal is open."
+        },
+        "relay.agentStartupDelayMs": {
+          "type": "number",
+          "default": 500,
+          "minimum": 0,
+          "description": "Milliseconds to wait after starting an agent before pasting a reference."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test \"out/test/**/*.test.js\"",
+    "test:integration": "npm run compile && node scripts/run-integration.js",
+    "package": "npm run compile && vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.93.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.5.0"
+  },
+  "bugs": {
+    "url": "https://github.com/sulsira/relay/issues"
+  },
+  "homepage": "https://github.com/sulsira/relay#readme"
+}
