@@ -1,6 +1,6 @@
-# Relay for VS Code
+# Relay for CLI Agents
 
-Relay sends file paths and code selections from the editor to a CLI coding agent running in a dedicated terminal. It is the VS Code version of Relay. The JetBrains version lives in [`../jetbrains`](../jetbrains/README.md).
+Relay for CLI Agents (Relay) sends file paths and code selections from the editor to a CLI coding agent running in a dedicated terminal. It is the VS Code version of Relay. The JetBrains version lives in [`../jetbrains`](../jetbrains/README.md).
 
 ## What it does
 
